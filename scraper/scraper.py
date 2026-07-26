@@ -5,6 +5,7 @@ from scraper.logger import logger
 
 
 def fetch_page():
+
     logger.info("Fetching Website...")
 
     response = requests.get(BASE_URL)
