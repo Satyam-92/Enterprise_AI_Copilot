@@ -1,4 +1,5 @@
 import csv
+import json
 from bs4 import BeautifulSoup
 
 
@@ -14,6 +15,18 @@ def save_to_csv(book_list):
         writer.writeheader()
 
         writer.writerows(book_list)
+
+
+def save_to_json(book_list):
+
+    with open("data/books.json", "w", encoding="utf-8") as file:
+
+        json.dump(
+            book_list,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
 
 
 def parse_books(html):
@@ -50,5 +63,7 @@ def parse_books(html):
         book_list.append(book_data)
 
     save_to_csv(book_list)
+
+    save_to_json(book_list)
 
     print("Books saved successfully!")
