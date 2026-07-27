@@ -1,4 +1,19 @@
+import csv
 from bs4 import BeautifulSoup
+
+
+def save_to_csv(book_list):
+
+    with open("data/books.csv", "w", newline="", encoding="utf-8") as file:
+
+        writer = csv.DictWriter(
+            file,
+            fieldnames=["title", "price", "rating", "availability"]
+        )
+
+        writer.writeheader()
+
+        writer.writerows(book_list)
 
 
 def parse_books(html):
@@ -9,14 +24,31 @@ def parse_books(html):
 
     print(f"Total Books Found: {len(books)}\n")
 
+    book_list = []
+
     for book in books:
 
         title = book.h3.a["title"]
+
         price = book.find("p", class_="price_color").text
+
         rating = book.find("p")["class"][1]
 
+        availability = (
+            book.find("p", class_="instock availability")
+            .text
+            .strip()
+        )
 
-        print(f"Title : {title}")
-        print(f"Price : {price}")
-        print(f"Rating : {rating}")
-        print("-" * 50)
+        book_data = {
+            "title": title,
+            "price": price,
+            "rating": rating,
+            "availability": availability
+        }
+
+        book_list.append(book_data)
+
+    save_to_csv(book_list)
+
+    print("Books saved successfully!")
