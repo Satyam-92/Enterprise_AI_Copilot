@@ -8,12 +8,7 @@ def save_to_csv(book_list):
 
         writer = csv.DictWriter(
             file,
-            fieldnames=[
-                "title",
-                "price",
-                "rating",
-                "availability"
-            ]
+            fieldnames=["title", "price", "rating", "availability"]
         )
 
         writer.writeheader()
