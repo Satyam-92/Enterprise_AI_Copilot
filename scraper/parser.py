@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
-from etl.loader import save_to_csv, save_to_json
-from etl.transformer import transform_book
+from etl.pipeline import run_pipeline
 
 
 def parse_books(html):
@@ -34,13 +33,10 @@ def parse_books(html):
             "availability": availability
         }
 
-        # Transform the raw data
-        book_data = transform_book(book_data)
-
+        # Only collect the raw data
         book_list.append(book_data)
 
-    save_to_csv(book_list)
+    # Run the complete ETL pipeline
+    run_pipeline(book_list)
 
-    save_to_json(book_list)
-
-    print("Books saved successfully!")
+    print("ETL Pipeline executed successfully!")
