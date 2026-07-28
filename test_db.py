@@ -1,33 +1,21 @@
-from database.db import get_connection
+from database.db import get_connection, get_engine
+import pandas as pd
 
+# Test psycopg2
+try:
+    conn = get_connection()
+    print("✅ psycopg2 Connected Successfully!")
+    conn.close()
+except Exception as e:
+    print("❌ psycopg2 Error:", e)
 
-def test_connection():
-    try:
-        conn = get_connection()
+# Test SQLAlchemy
+try:
+    engine = get_engine()
+    df = pd.read_sql("SELECT * FROM books LIMIT 5;", engine)
 
-        print("=" * 50)
-        print("✅ PostgreSQL Connected Successfully!")
-        print("=" * 50)
+    print("\n✅ SQLAlchemy Connected Successfully!")
+    print(df)
 
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT version();")
-
-        version = cursor.fetchone()
-
-        print(version[0])
-
-        cursor.close()
-        conn.close()
-
-        print("\nConnection Closed Successfully!")
-
-    except Exception as e:
-        print("=" * 50)
-        print("❌ Database Connection Failed!")
-        print("=" * 50)
-        print(e)
-
-
-if __name__ == "__main__":
-    test_connection()
+except Exception as e:
+    print("❌ SQLAlchemy Error:", e)
