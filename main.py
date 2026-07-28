@@ -1,12 +1,9 @@
-from scraper.scraper import fetch_page
-from scraper.parser import parse_books
+from services.scraper_service import run_scraper
 
 
 def main():
-
-    html = fetch_page()
-
-    parse_books(html)
+    run_scraper()
+    print("ETL Pipeline executed successfully!")
 
 
 if __name__ == "__main__":
