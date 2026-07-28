@@ -18,3 +18,7 @@ venv/
 # Operating System Files
 .DS_Store
 Thumbs.db
+
+# ChromaDB
+chroma_db/
+*.sqlite3
