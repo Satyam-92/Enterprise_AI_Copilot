@@ -3,16 +3,10 @@ from rag.prompt_builder import build_prompt
 from rag.gemini_client import generate_answer
 
 
-def ask_question(question):
-    results = search_books(question)
+def ask_question(question: str):
+    search_results = search_books(question)
 
-    print("\n===== SEARCH RESULTS =====")
-    print(results)
-
-    prompt = build_prompt(question, results)
-
-    print("\n===== PROMPT =====")
-    print(prompt)
+    prompt = build_prompt(question, search_results)
 
     answer = generate_answer(prompt)
 
