@@ -10,4 +10,4 @@ router = APIRouter()
 def ask_ai(request: QuestionRequest):
     answer = ask_question(request.question)
     
-    return AnswerResponse(Answer=answer)
+    return AnswerResponse(answer=answer)
